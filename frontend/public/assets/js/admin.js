@@ -3,13 +3,67 @@
 // Initialize admin panel
 document.addEventListener('DOMContentLoaded', function() {
     lucide.createIcons();
-    initializeAdmin();
+    checkAuthentication();
 });
 
 // Global variables
 let currentMenuCategory = 'entrees';
 let currentMenuItemId = null;
 let currentReviewId = null;
+const ADMIN_PASSWORD = 'menu2025';
+
+// Check authentication
+function checkAuthentication() {
+    const isAuthenticated = sessionStorage.getItem('adminAuthenticated');
+    
+    if (isAuthenticated === 'true') {
+        showAdminPanel();
+    } else {
+        showLoginModal();
+    }
+}
+
+// Show login modal
+function showLoginModal() {
+    document.getElementById('loginModal').style.display = 'flex';
+    document.getElementById('adminContainer').style.display = 'none';
+    
+    // Setup login form
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
+    }
+}
+
+// Handle login
+function handleLogin(e) {
+    e.preventDefault();
+    
+    const password = document.getElementById('adminPassword').value;
+    const errorElement = document.getElementById('loginError');
+    
+    if (password === ADMIN_PASSWORD) {
+        sessionStorage.setItem('adminAuthenticated', 'true');
+        showAdminPanel();
+    } else {
+        errorElement.style.display = 'block';
+        document.getElementById('adminPassword').value = '';
+        document.getElementById('adminPassword').focus();
+    }
+}
+
+// Show admin panel
+function showAdminPanel() {
+    document.getElementById('loginModal').style.display = 'none';
+    document.getElementById('adminContainer').style.display = 'block';
+    initializeAdmin();
+}
+
+// Logout function
+function logout() {
+    sessionStorage.removeItem('adminAuthenticated');
+    location.reload();
+}
 
 // Initialize admin functionality
 function initializeAdmin() {
