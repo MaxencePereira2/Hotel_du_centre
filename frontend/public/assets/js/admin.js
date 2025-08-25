@@ -2,7 +2,9 @@
 
 // Initialize admin panel
 document.addEventListener('DOMContentLoaded', function() {
-    lucide.createIcons();
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
     checkAuthentication();
 });
 
