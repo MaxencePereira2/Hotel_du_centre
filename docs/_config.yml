@@ -1,0 +1,45 @@
+# Configuration GitHub Pages pour Hôtel du Centre
+
+# Informations du site
+title: "Hôtel du Centre - Champeix"
+description: "Restaurant familial avec cuisine traditionnelle auvergnate - Jérôme et Amandine Moins"
+url: "https://votre-username.github.io"
+baseurl: "/votre-repo-name"
+
+# Configuration
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+# Plugins GitHub Pages
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Exclusions
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+
+# Inclusion des fichiers avec extension
+include:
+  - .htaccess
+
+# Configuration SEO
+lang: fr
+author: "Jérôme et Amandine Moins"
+twitter:
+  username: hotel_du_centre
+  card: summary_large_image
+
+# Logo du site (optionnel)
+logo: assets/images/logo.png
+
+# Réseaux sociaux (optionnel)
+social:
+  name: Hôtel du Centre
+  links:
+    - https://www.facebook.com/hotelducentre
+    - https://www.instagram.com/hotelducentre
