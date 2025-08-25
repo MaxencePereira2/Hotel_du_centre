@@ -1,151 +1,530 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#000000" />
-        <meta name="description" content="A product of emergent.sh" />
-        <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-        <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hôtel du Centre - Champeix | Restaurant & Hôtel</title>
+    <meta name="description" content="Hôtel du Centre à Champeix - Restaurant familial avec cuisine traditionnelle auvergnate. Jérôme et Amandine Moins vous accueillent dans un cadre authentique.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="logo">
+                    <div class="logo-icon">H</div>
+                    <div class="logo-text">
+                        <h1>Hôtel du Centre</h1>
+                        <p>Champeix</p>
+                    </div>
+                </div>
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-        <title>Emergent | Fullstack App</title>
-    </head>
-    <body>
-        <noscript>You need to enable JavaScript to run this app.</noscript>
-        <div id="root"></div>
-        <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+                <!-- Navigation Desktop -->
+                <nav class="nav-desktop">
+                    <a href="#presentation">Présentation</a>
+                    <a href="#gallery">Galerie</a>
+                    <a href="#menu">Menu</a>
+                    <a href="#reviews">Avis</a>
+                    <a href="#contact">Contact</a>
+                    <button class="btn btn-primary" onclick="scrollToSection('contact')">Réserver</button>
+                </nav>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+                <!-- Contact rapide Desktop -->
+                <div class="contact-quick">
+                    <div class="contact-item">
+                        <i data-lucide="phone"></i>
+                        <span>04 73 96 35 08</span>
+                    </div>
+                    <div class="contact-item">
+                        <i data-lucide="map-pin"></i>
+                        <span>Champeix</span>
+                    </div>
+                </div>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-        <a
-            id="emergent-badge"
-            target="_blank"
-            href="https://app.emergent.sh/?utm_source=emergent-badge"
-            style="
-                display: flex !important;
-                align-items: center !important;
-                position: fixed !important;
-                bottom: 20px;
-                right: 20px;
-                text-decoration: none;
-                padding: 6px 10px;
-                font-family: -apple-system, BlinkMacSystemFont,
-                    &quot;Segoe UI&quot;, Roboto, Oxygen, Ubuntu, Cantarell,
-                    &quot;Open Sans&quot;, &quot;Helvetica Neue&quot;,
-                    sans-serif !important;
-                font-size: 12px !important;
-                z-index: 9999 !important;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
-                border-radius: 8px !important;
-                background-color: #ffffff !important;
-                border: 1px solid rgba(255, 255, 255, 0.25) !important;
-            "
-        >
-            <div
-                style="display: flex; flex-direction: row; align-items: center"
-            >
-                <img
-                    style="width: 20px; height: 20px; margin-right: 8px"
-                    src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4"
-                />
-                <p
-                    style="
-                        color: #000000;
-                        font-family: -apple-system, BlinkMacSystemFont,
-                            &quot;Segoe UI&quot;, Roboto, Oxygen, Ubuntu,
-                            Cantarell, &quot;Open Sans&quot;,
-                            &quot;Helvetica Neue&quot;, sans-serif !important;
-                        font-size: 12px !important;
-                        align-items: center;
-                        margin-bottom: 0;
-                    "
-                >
-                    Made with Emergent
-                </p>
+                <!-- Menu Mobile -->
+                <button class="menu-toggle" onclick="toggleMobileMenu()">
+                    <i data-lucide="menu"></i>
+                </button>
             </div>
-        </a>
-        <script>
-            !(function (t, e) {
-                var o, n, p, r;
-                e.__SV ||
-                    ((window.posthog = e),
-                    (e._i = []),
-                    (e.init = function (i, s, a) {
-                        function g(t, e) {
-                            var o = e.split(".");
-                            2 == o.length && ((t = t[o[0]]), (e = o[1])),
-                                (t[e] = function () {
-                                    t.push(
-                                        [e].concat(
-                                            Array.prototype.slice.call(
-                                                arguments,
-                                                0,
-                                            ),
-                                        ),
-                                    );
-                                });
-                        }
-                        ((p = t.createElement("script")).type =
-                            "text/javascript"),
-                            (p.crossOrigin = "anonymous"),
-                            (p.async = !0),
-                            (p.src =
-                                s.api_host.replace(
-                                    ".i.posthog.com",
-                                    "-assets.i.posthog.com",
-                                ) + "/static/array.js"),
-                            (r =
-                                t.getElementsByTagName(
-                                    "script",
-                                )[0]).parentNode.insertBefore(p, r);
-                        var u = e;
-                        for (
-                            void 0 !== a ? (u = e[a] = []) : (a = "posthog"),
-                                u.people = u.people || [],
-                                u.toString = function (t) {
-                                    var e = "posthog";
-                                    return (
-                                        "posthog" !== a && (e += "." + a),
-                                        t || (e += " (stub)"),
-                                        e
-                                    );
-                                },
-                                u.people.toString = function () {
-                                    return u.toString(1) + ".people (stub)";
-                                },
-                                o =
-                                    "init me ws ys ps bs capture je Di ks register register_once register_for_session unregister unregister_for_session Ps getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty Es $s createPersonProfile Is opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing Ss debug xs getPageViewId captureTraceFeedback captureTraceMetric".split(
-                                        " ",
-                                    ),
-                                n = 0;
-                            n < o.length;
-                            n++
-                        )
-                            g(u, o[n]);
-                        e._i.push([i, s, a]);
-                    }),
-                    (e.__SV = 1));
-            })(document, window.posthog || []);
-            posthog.init("phc_yJW1VjHGGwmCbbrtczfqqNxgBDbhlhOWcdzcIJEOTFE", {
-                api_host: "https://us.i.posthog.com",
-                person_profiles: "identified_only", // or 'always' to create profiles for anonymous users as well
-            });
-        </script>
-    </body>
+
+            <!-- Menu Mobile Dropdown -->
+            <div class="mobile-menu" id="mobileMenu">
+                <nav>
+                    <a href="#presentation" onclick="closeMobileMenu()">Présentation</a>
+                    <a href="#gallery" onclick="closeMobileMenu()">Galerie</a>
+                    <a href="#menu" onclick="closeMobileMenu()">Menu</a>
+                    <a href="#reviews" onclick="closeMobileMenu()">Avis</a>
+                    <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+                    <button class="btn btn-primary" onclick="scrollToSection('contact'); closeMobileMenu();">Réserver</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="hero-badge">
+                        <i data-lucide="map-pin"></i>
+                        <span>Champeix, Puy-de-Dôme</span>
+                    </div>
+                    
+                    <h1 class="hero-title">Hôtel du Centre</h1>
+                    <p class="hero-subtitle">Jérôme et Amandine Moins</p>
+                    
+                    <div class="hero-rating">
+                        <div class="stars">
+                            <span>⭐⭐⭐⭐⭐</span>
+                        </div>
+                        <span class="rating-number">4.7</span>
+                        <span class="rating-count">(365 avis)</span>
+                    </div>
+
+                    <p class="hero-description" id="heroDescription">
+                        Au cœur de Champeix, l'Hôtel du Centre vous accueille dans un cadre chaleureux et authentique. Jérôme et Amandine vous proposent une cuisine traditionnelle française avec des produits locaux de qualité.
+                    </p>
+
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="scrollToSection('contact')">Réserver une table</button>
+                        <button class="btn btn-outline" onclick="scrollToSection('menu')">Voir le menu</button>
+                    </div>
+
+                    <div class="hero-hours">
+                        <div class="hours-header">
+                            <i data-lucide="clock"></i>
+                            <h3>Horaires d'ouverture</h3>
+                        </div>
+                        <div class="hours-grid">
+                            <div class="hours-item">
+                                <span>Lundi</span>
+                                <span class="closed">Fermé</span>
+                            </div>
+                            <div class="hours-item">
+                                <span>Mar - Dim</span>
+                                <span class="open">08:00 - 22:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-image">
+                    <img src="https://lh3.googleusercontent.com/p/AF1QipP1Iig4bRvFXNjhXk-KtRdt33iD2HYqTtYiTYro=w500-h400-n-k-no" alt="Intérieur de l'Hôtel du Centre">
+                    <div class="hero-badge-floating">
+                        <div class="badge-label">Restaurant & Hôtel</div>
+                        <div class="badge-year">Depuis 2016</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Presentation Section -->
+    <section id="presentation" class="presentation">
+        <div class="container">
+            <div class="section-header">
+                <h2>Une Histoire de Passion</h2>
+                <p>Depuis notre installation à Champeix, nous nous sommes donnés pour mission de vous faire découvrir la richesse de la gastronomie auvergnate dans un cadre authentique et chaleureux.</p>
+            </div>
+
+            <div class="presentation-content">
+                <div class="presentation-text">
+                    <h3>Jérôme et Amandine Moins</h3>
+                    <p>Propriétaires de l'Hôtel du Centre depuis 2016, nous avons à cœur de perpétuer la tradition de l'hospitalité française. Notre restaurant familial est devenu une référence à Champeix grâce à notre cuisine authentique et notre service attentionné.</p>
+                    <p>Chaque plat est préparé avec soin, en privilégiant les circuits courts et les producteurs locaux. Notre terrasse vous invite à profiter des beaux jours dans un cadre paisible, tandis que notre salle intérieure vous accueille dans une ambiance feutrée et conviviale.</p>
+                    <div class="quote">
+                        <p>"Notre plus grande fierté ? Voir nos clients repartir avec le sourire et l'envie de revenir !"</p>
+                        <cite>- Jérôme et Amandine</cite>
+                    </div>
+                </div>
+
+                <div class="presentation-image">
+                    <img src="https://lh3.googleusercontent.com/p/AF1QipOVWl3RwkTTPfQt9Le3A3zTr83KDnUiW76FmSLT=w400-h300-n-k-no" alt="L'équipe de l'Hôtel du Centre">
+                    <div class="rating-badge">
+                        <i data-lucide="award"></i>
+                        <div>
+                            <div class="rating-score">4.7/5</div>
+                            <div class="rating-source">Note Google</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">❤️</div>
+                    <h4>Cuisine du Cœur</h4>
+                    <p>Des recettes traditionnelles préparées avec passion et des produits locaux de qualité.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h4>Accueil Familial</h4>
+                    <p>Jérôme et Amandine vous accueillent dans une ambiance chaleureuse et conviviale.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h4>Savoir-Faire</h4>
+                    <p>Une expertise culinaire reconnue avec plus de 365 avis clients satisfaits.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📍</div>
+                    <h4>Terroir Auvergnat</h4>
+                    <p>Au cœur de Champeix, découvrez les saveurs authentiques de notre région.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2>Découvrez Notre Univers</h2>
+                <p>Plongez dans l'ambiance chaleureuse de notre restaurant et découvrez nos spécialités culinaires qui font la réputation de l'Hôtel du Centre.</p>
+            </div>
+
+            <div class="gallery-tabs">
+                <button class="tab-btn active" onclick="switchGalleryTab('restaurant')">
+                    🍽️ Restaurant & Salle
+                </button>
+                <button class="tab-btn" onclick="switchGalleryTab('dishes')">
+                    🍳 Nos Plats
+                </button>
+            </div>
+
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Images will be loaded by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu">
+        <div class="container">
+            <div class="section-header">
+                <h2>Notre Carte</h2>
+                <p>Découvrez notre sélection de plats traditionnels préparés avec des produits frais et locaux. Une cuisine authentique qui respecte les saveurs du terroir auvergnat.</p>
+            </div>
+
+            <div class="menu-tabs">
+                <button class="tab-btn active" onclick="switchMenuTab('entrees')">
+                    <i data-lucide="coffee"></i>
+                    Entrées
+                </button>
+                <button class="tab-btn" onclick="switchMenuTab('plats')">
+                    <i data-lucide="chef-hat"></i>
+                    Plats Principaux
+                </button>
+                <button class="tab-btn" onclick="switchMenuTab('desserts')">
+                    <i data-lucide="cake"></i>
+                    Desserts
+                </button>
+            </div>
+
+            <div class="menu-content" id="menuContent">
+                <!-- Menu items will be loaded by JavaScript -->
+            </div>
+
+            <div class="menu-info">
+                <div class="info-card">
+                    <div class="info-icon">🌟</div>
+                    <h3>Spécialités Régionales</h3>
+                    <p>Nos plats mettent à l'honneur les produits du terroir auvergnat : tome fraîche, lentilles vertes du Puy, viandes locales et légumes de saison.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">🥬</div>
+                    <h3>Options Végétariennes</h3>
+                    <p>Nous proposons également des options végétariennes préparées avec la même attention et des produits frais de qualité.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="reviews">
+        <div class="container">
+            <div class="section-header">
+                <h2>Ce Que Disent Nos Clients</h2>
+            </div>
+
+            <div class="reviews-summary">
+                <div class="rating-large">4.7</div>
+                <div class="rating-details">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>Basé sur <strong>365 avis</strong> Google</p>
+                    <button class="btn btn-outline" onclick="window.open('https://www.google.com/search?q=Hôtel+du+Centre+Champeix+avis', '_blank')">
+                        <i data-lucide="external-link"></i>
+                        Voir tous les avis Google
+                    </button>
+                </div>
+            </div>
+
+            <div class="reviews-grid" id="reviewsGrid">
+                <!-- Reviews will be loaded by JavaScript -->
+            </div>
+
+            <div class="reviews-cta">
+                <h3>Votre Avis Nous Intéresse !</h3>
+                <p>Vous avez apprécié votre expérience chez nous ? N'hésitez pas à partager votre avis pour aider d'autres gourmets à découvrir notre cuisine traditionnelle.</p>
+                <button class="btn btn-primary" onclick="window.open('https://www.google.com/search?q=Hôtel+du+Centre+Champeix+avis', '_blank')">
+                    <i data-lucide="star"></i>
+                    Laisser un avis Google
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Réservez Votre Table</h2>
+                <p>Contactez-nous pour réserver votre table ou pour toute question. Nous serons ravis de vous accueillir dans notre restaurant familial.</p>
+            </div>
+
+            <div class="contact-content">
+                <div class="contact-form-container">
+                    <div class="form-header">
+                        <i data-lucide="calendar"></i>
+                        <h3>Demande de Réservation</h3>
+                    </div>
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Nom complet *</label>
+                                <input type="text" name="name" required placeholder="Votre nom">
+                            </div>
+                            <div class="form-group">
+                                <label>Email *</label>
+                                <input type="email" name="email" required placeholder="votre@email.com">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Téléphone</label>
+                                <input type="tel" name="phone" placeholder="06 12 34 56 78">
+                            </div>
+                            <div class="form-group">
+                                <label>Nombre de convives</label>
+                                <input type="number" name="guests" placeholder="2" min="1" max="70">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Date souhaitée</label>
+                            <input type="date" name="date">
+                        </div>
+                        <div class="form-group">
+                            <label>Message (optionnel)</label>
+                            <textarea name="message" rows="4" placeholder="Précisez vos préférences, allergies, occasion spéciale..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">
+                            Envoyer la demande de réservation
+                        </button>
+                        <p class="form-note">* Champs obligatoires. Nous vous recontacterons pour confirmer votre réservation.</p>
+                    </form>
+                </div>
+
+                <div class="contact-info">
+                    <div class="contact-methods">
+                        <div class="contact-method" onclick="window.open('tel:+33473963508')">
+                            <div class="method-icon">
+                                <i data-lucide="phone"></i>
+                            </div>
+                            <div class="method-content">
+                                <h4>Téléphone</h4>
+                                <p>Appelez-nous directement</p>
+                                <strong>+33 4 73 96 35 08</strong>
+                            </div>
+                        </div>
+                        <div class="contact-method" onclick="window.open('mailto:contact@hotel-du-centre-champeix.fr')">
+                            <div class="method-icon">
+                                <i data-lucide="mail"></i>
+                            </div>
+                            <div class="method-content">
+                                <h4>Email</h4>
+                                <p>Écrivez-nous un message</p>
+                                <strong>contact@hotel-du-centre-champeix.fr</strong>
+                            </div>
+                        </div>
+                        <div class="contact-method" onclick="window.open('https://maps.google.com/?q=17+Rue+de+la+Halle,+63320+Champeix,+France')">
+                            <div class="method-icon">
+                                <i data-lucide="map-pin"></i>
+                            </div>
+                            <div class="method-content">
+                                <h4>Adresse</h4>
+                                <p>Venez nous rendre visite</p>
+                                <strong>17 Rue de la Halle, 63320 Champeix, France</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hours-card">
+                        <div class="card-header">
+                            <i data-lucide="clock"></i>
+                            <h3>Horaires d'Ouverture</h3>
+                        </div>
+                        <div class="hours-list">
+                            <div class="hours-item">
+                                <span>Lundi</span>
+                                <span class="closed">Fermé</span>
+                            </div>
+                            <div class="hours-item">
+                                <span>Mardi</span>
+                                <span class="open">08:00 - 22:00</span>
+                            </div>
+                            <div class="hours-item">
+                                <span>Mercredi</span>
+                                <span class="open">08:00 - 22:00</span>
+                            </div>
+                            <div class="hours-item">
+                                <span>Jeudi</span>
+                                <span class="open">08:00 - 22:00</span>
+                            </div>
+                            <div class="hours-item">
+                                <span>Vendredi</span>
+                                <span class="open">08:00 - 22:00</span>
+                            </div>
+                            <div class="hours-item">
+                                <span>Samedi</span>
+                                <span class="open">08:00 - 22:00</span>
+                            </div>
+                            <div class="hours-item">
+                                <span>Dimanche</span>
+                                <span class="open">08:00 - 22:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-main">
+                    <div class="footer-logo">
+                        <div class="logo-icon">H</div>
+                        <div>
+                            <h3>Hôtel du Centre</h3>
+                            <p>Jérôme et Amandine Moins</p>
+                        </div>
+                    </div>
+                    <p>Restaurant familial au cœur de Champeix, proposant une cuisine traditionnelle auvergnate dans une ambiance chaleureuse et authentique.</p>
+                    <div class="footer-rating">
+                        <span>⭐⭐⭐⭐⭐</span>
+                        <strong>4.7/5</strong>
+                        <span>(365 avis Google)</span>
+                    </div>
+                </div>
+
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <div class="footer-links">
+                        <a href="tel:+33473963508">
+                            <i data-lucide="phone"></i>
+                            +33 4 73 96 35 08
+                        </a>
+                        <a href="mailto:contact@hotel-du-centre-champeix.fr">
+                            <i data-lucide="mail"></i>
+                            contact@hotel-du-centre-champeix.fr
+                        </a>
+                        <div class="footer-address">
+                            <i data-lucide="map-pin"></i>
+                            17 Rue de la Halle, 63320 Champeix, France
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-hours">
+                    <h4>Horaires</h4>
+                    <div class="hours-summary">
+                        <div class="hours-item">
+                            <span>Lundi</span>
+                            <span class="closed">Fermé</span>
+                        </div>
+                        <div class="hours-item">
+                            <span>Mar - Dim</span>
+                            <span class="open">08:00 - 22:00</span>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <h5>Suivez-nous</h5>
+                        <div class="social-buttons">
+                            <button class="social-btn facebook">
+                                <i data-lucide="facebook"></i>
+                            </button>
+                            <button class="social-btn instagram">
+                                <i data-lucide="instagram"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    <span>© 2025 Hôtel du Centre. Tous droits réservés.</span>
+                </div>
+                <div class="footer-made">
+                    <span>Fait avec</span>
+                    <i data-lucide="heart" class="heart"></i>
+                    <span>à Champeix</span>
+                </div>
+                <div class="footer-links-bottom">
+                    <a href="/admin.html" target="_blank">Administration</a>
+                    <a href="#">Mentions légales</a>
+                    <a href="#">Politique de confidentialité</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <div class="toast-content">
+            <i data-lucide="check-circle"></i>
+            <div>
+                <div class="toast-title">Demande envoyée !</div>
+                <div class="toast-message">Nous vous recontacterons rapidement.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" onclick="closeLightbox()">
+                <i data-lucide="x"></i>
+            </button>
+            <button class="lightbox-prev" onclick="prevImage()">
+                <i data-lucide="chevron-left"></i>
+            </button>
+            <button class="lightbox-next" onclick="nextImage()">
+                <i data-lucide="chevron-right"></i>
+            </button>
+            <img id="lightboxImage" alt="">
+            <div class="lightbox-info">
+                <h3 id="lightboxTitle"></h3>
+                <p id="lightboxDescription"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
 </html>
