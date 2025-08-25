@@ -241,17 +241,25 @@ function handleMenuFormSubmit(e) {
         description: formData.get('description') || ''
     };
     
+    console.log('Saving menu item:', item, 'Category:', currentMenuCategory, 'ID:', currentMenuItemId);
+    
     let success;
     if (currentMenuItemId) {
         success = dataManager.updateMenuItem(currentMenuCategory, currentMenuItemId, item);
+        console.log('Update result:', success);
     } else {
         success = dataManager.addMenuItem(currentMenuCategory, item);
+        console.log('Add result:', success);
     }
     
     if (success) {
         closeMenuModal();
         loadMenuItems();
         showToast('Succès', currentMenuItemId ? 'Plat modifié avec succès.' : 'Plat ajouté avec succès.');
+        
+        // Force save to localStorage
+        const saveResult = dataManager.saveData();
+        console.log('Force save result:', saveResult);
     } else {
         showToast('Erreur', 'Impossible de sauvegarder le plat.', 'error');
     }
