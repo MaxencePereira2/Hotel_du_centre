@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - Hôtel du Centre</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+    <!-- Login Modal -->
+    <div class="login-modal" id="loginModal">
+        <div class="login-content">
+            <div class="login-header">
+                <div class="logo">
+                    <div class="logo-icon">H</div>
+                    <div>
+                        <h1>Administration</h1>
+                        <p>Hôtel du Centre</p>
+                    </div>
+                </div>
+            </div>
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label>Mot de passe d'administration</label>
+                    <input type="password" id="adminPassword" placeholder="Entrez le mot de passe" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">
+                    <i data-lucide="log-in"></i>
+                    Accéder à l'administration
+                </button>
+                <p class="login-error" id="loginError" style="display: none;">
+                    Mot de passe incorrect. Veuillez réessayer.
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Content (hidden by default) -->
+    <div class="admin-container" id="adminContainer" style="display: none;">
+        <!-- Header -->
+        <header class="admin-header">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">H</div>
+                    <div>
+                        <h1>Administration</h1>
+                        <p>Hôtel du Centre</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <a href="index.html" class="btn btn-outline" target="_blank">
+                        <i data-lucide="external-link"></i>
+                        Voir le site
+                    </a>
+                    <button class="btn btn-primary" onclick="saveAllData()">
+                        <i data-lucide="save"></i>
+                        Sauvegarder
+                    </button>
+                    <button class="btn btn-outline" onclick="logout()">
+                        <i data-lucide="log-out"></i>
+                        Déconnexion
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="admin-nav">
+            <button class="nav-btn active" onclick="showSection('menu')" data-section="menu">
+                <i data-lucide="chef-hat"></i>
+                Gestion du Menu
+            </button>
+            <button class="nav-btn" onclick="showSection('reviews')" data-section="reviews">
+                <i data-lucide="star"></i>
+                Gestion des Avis
+            </button>
+            <button class="nav-btn" onclick="showSection('info')" data-section="info">
+                <i data-lucide="info"></i>
+                Informations Générales
+            </button>
+            <button class="nav-btn" onclick="showSection('reservations')" data-section="reservations">
+                <i data-lucide="calendar"></i>
+                Réservations
+            </button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Menu Management Section -->
+            <section id="menuSection" class="admin-section active">
+                <div class="section-header">
+                    <h2>Gestion du Menu</h2>
+                    <p>Gérez les plats de votre carte restaurant</p>
+                </div>
+
+                <div class="menu-tabs">
+                    <button class="tab-btn active" onclick="switchAdminMenuTab('entrees')">Entrées</button>
+                    <button class="tab-btn" onclick="switchAdminMenuTab('plats')">Plats Principaux</button>
+                    <button class="tab-btn" onclick="switchAdminMenuTab('desserts')">Desserts</button>
+                </div>
+
+                <div class="menu-category" id="menuCategory">
+                    <div class="category-header">
+                        <h3 id="categoryTitle">Entrées</h3>
+                        <button class="btn btn-primary" onclick="addMenuItem()">
+                            <i data-lucide="plus"></i>
+                            Ajouter un plat
+                        </button>
+                    </div>
+                    <div class="menu-items" id="menuItems">
+                        <!-- Menu items will be loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reviews Management Section -->
+            <section id="reviewsSection" class="admin-section">
+                <div class="section-header">
+                    <h2>Gestion des Avis</h2>
+                    <p>Gérez les témoignages clients affichés sur votre site</p>
+                </div>
+
+                <div class="reviews-header">
+                    <div class="reviews-stats">
+                        <div class="stat-card">
+                            <div class="stat-number" id="avgRating">4.7</div>
+                            <div class="stat-label">Note moyenne</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="totalReviews">365</div>
+                            <div class="stat-label">Total avis Google</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number" id="displayedReviews">4</div>
+                            <div class="stat-label">Avis affichés</div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="addReview()">
+                        <i data-lucide="plus"></i>
+                        Ajouter un avis
+                    </button>
+                </div>
+
+                <div class="reviews-list" id="reviewsList">
+                    <!-- Reviews will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Info Management Section -->
+            <section id="infoSection" class="admin-section">
+                <div class="section-header">
+                    <h2>Informations Générales</h2>
+                    <p>Modifiez les informations de base de votre établissement</p>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>Informations de Base</h3>
+                        <div class="form-group">
+                            <label>Nom de l'établissement</label>
+                            <input type="text" id="hotelName" placeholder="Hôtel du Centre">
+                        </div>
+                        <div class="form-group">
+                            <label>Sous-titre</label>
+                            <input type="text" id="hotelSubtitle" placeholder="Jérôme et Amandine Moins">
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="hotelDescription" rows="4" placeholder="Description de votre établissement..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>Contact</h3>
+                        <div class="form-group">
+                            <label>Téléphone</label>
+                            <input type="tel" id="hotelPhone" placeholder="+33 4 73 96 35 08">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" id="hotelEmail" placeholder="contact@hotel-du-centre-champeix.fr">
+                        </div>
+                        <div class="form-group">
+                            <label>Adresse</label>
+                            <textarea id="hotelAddress" rows="2" placeholder="17 Rue de la Halle, 63320 Champeix, France"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>Évaluation Google</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Note moyenne</label>
+                                <input type="number" id="googleRating" step="0.1" min="0" max="5" placeholder="4.7">
+                            </div>
+                            <div class="form-group">
+                                <label>Nombre d'avis</label>
+                                <input type="number" id="googleReviewCount" placeholder="365">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <h3>Horaires d'Ouverture</h3>
+                        <div class="hours-editor">
+                            <div class="hours-day">
+                                <label>Lundi</label>
+                                <input type="text" id="hoursMonday" placeholder="Fermé">
+                            </div>
+                            <div class="hours-day">
+                                <label>Mardi</label>
+                                <input type="text" id="hoursTuesday" placeholder="08:00 - 22:00">
+                            </div>
+                            <div class="hours-day">
+                                <label>Mercredi</label>
+                                <input type="text" id="hoursWednesday" placeholder="08:00 - 22:00">
+                            </div>
+                            <div class="hours-day">
+                                <label>Jeudi</label>
+                                <input type="text" id="hoursThursday" placeholder="08:00 - 22:00">
+                            </div>
+                            <div class="hours-day">
+                                <label>Vendredi</label>
+                                <input type="text" id="hoursFriday" placeholder="08:00 - 22:00">
+                            </div>
+                            <div class="hours-day">
+                                <label>Samedi</label>
+                                <input type="text" id="hoursSaturday" placeholder="08:00 - 22:00">
+                            </div>
+                            <div class="hours-day">
+                                <label>Dimanche</label>
+                                <input type="text" id="hoursSunday" placeholder="08:00 - 22:00">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reservations Section -->
+            <section id="reservationsSection" class="admin-section">
+                <div class="section-header">
+                    <h2>Réservations</h2>
+                    <p>Consultez les demandes de réservation reçues</p>
+                </div>
+
+                <div class="reservations-filters">
+                    <button class="filter-btn active" onclick="filterReservations('all')">Toutes</button>
+                    <button class="filter-btn" onclick="filterReservations('pending')">En attente</button>
+                    <button class="filter-btn" onclick="filterReservations('confirmed')">Confirmées</button>
+                    <button class="filter-btn" onclick="filterReservations('cancelled')">Annulées</button>
+                </div>
+
+                <div class="reservations-list" id="reservationsList">
+                    <!-- Reservations will be loaded here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal for Menu Item -->
+    <div class="modal" id="menuModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="menuModalTitle">Ajouter un plat</h3>
+                <button class="modal-close" onclick="closeMenuModal()">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <form id="menuForm">
+                <div class="form-group">
+                    <label>Nom du plat *</label>
+                    <input type="text" name="name" id="menuItemName" required placeholder="Nom du plat">
+                </div>
+                <div class="form-group">
+                    <label>Prix *</label>
+                    <input type="text" name="price" id="menuItemPrice" required placeholder="15€">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea name="description" id="menuItemDescription" rows="3" placeholder="Description du plat..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeMenuModal()">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Sauvegarder</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Review -->
+    <div class="modal" id="reviewModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="reviewModalTitle">Ajouter un avis</h3>
+                <button class="modal-close" onclick="closeReviewModal()">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <form id="reviewForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nom du client *</label>
+                        <input type="text" name="name" id="reviewName" required placeholder="Marie L.">
+                    </div>
+                    <div class="form-group">
+                        <label>Note *</label>
+                        <select name="rating" id="reviewRating" required>
+                            <option value="">Choisir une note</option>
+                            <option value="5">5 étoiles</option>
+                            <option value="4">4 étoiles</option>
+                            <option value="3">3 étoiles</option>
+                            <option value="2">2 étoiles</option>
+                            <option value="1">1 étoile</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="text" name="date" id="reviewDate" placeholder="Il y a 2 semaines">
+                </div>
+                <div class="form-group">
+                    <label>Commentaire *</label>
+                    <textarea name="comment" id="reviewComment" rows="4" required placeholder="Commentaire du client..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" onclick="closeReviewModal()">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Sauvegarder</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <div class="toast-content">
+            <i data-lucide="check-circle"></i>
+            <div>
+                <div class="toast-title">Succès !</div>
+                <div class="toast-message" id="toastMessage">Données sauvegardées avec succès.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/admin.js"></script>
+</body>
+</html>
